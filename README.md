@@ -1,70 +1,296 @@
-# Getting Started with Create React App
+![Logo-nav](https://s3.ap-south-1.amazonaws.com/kalvi-education.github.io/front-end-web-development/Kalvium-Logo.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Kalvium Lab | REACT HOOKS - BASIC
 
-In the project directory, you can run:
+## Learning Goals
 
-### `npm start`
+In this exercise, the goal is to learn various use cases with hooks:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React Hooks
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting started
 
-### `npm test`
+1. Fork this repo
+2. Clone this repo
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Whenever you create a first significant change, you should make your first commit.
 
-### `npm run build`
+3. Follow these [guidelines to add, commit and push changes](https://github.com/FACEPrep-ProGrad/general-guidelines-labs-project-builders.git).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Instructions
+In this lab we will try to work with hooks in react. You can use a single component or create one component for each progression. This lab is just for your reference and kinldy explore the power of react hooks.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### PROGRESSION 1 | UPDATE STATE USING `useState`
 
-### `npm run eject`
+The following piece of code is written inside `UseState.js` componenet. This component will be rendered inside `App.js`. 
+The following piece of code displays as how `useState` hook can be used to update an element.
+Free feel to copy this code, and experiment around.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```js
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+import React from "react";
+import { useState } from "react";
+import "../App.css"
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+function UseState(){
+  const [currAge,setAge] = useState(19);
+  
+  const handleAge = ()=>{
+    setAge(currAge+1);
+  }
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+  return (
+    <div>
+      <h3>My Current Age is {currAge}</h3>
+      <button onClick={handleAge}>Get Older</button>
+    </div>
+  );
+}
 
-## Learn More
+export default UseState;
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![Image description](https://s3.ap-south-1.amazonaws.com/kalvi-education.github.io/front-end-web-development/usestatehookOne.gif)
 
-### Code Splitting
+### PROGRESSION 2 | MULTIPLE STATE
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Adding multiple `useState` hook, inside `UseState.js` file. This component will be rendered inside `App.js`. 
+The following piece of code displays as how multiple `useState` hooks can be used to update elements.
+Free feel to copy this code, and experiment around.
 
-### Analyzing the Bundle Size
+```js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+import React from "react";
+import { useState } from "react";
+import "../App.css"
 
-### Making a Progressive Web App
+function UseState(){
+  const [currAge,setAge] = useState(19);
+  const [currSib, setSib] = useState(1);
+  
+  const handleAge = ()=>{
+    setAge(currAge+1);
+  }
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+  const handleSib = ()=>{
+    setSib(currSib+1);
+  }
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+  return (
+    <div>
+      <h3>My Current Age is {currAge}</h3>
+      <h4>My siblings {currSib}</h4>
 
-### Deployment
+      <button onClick={handleAge}>Get Older</button>
+      <button onClick={handleSib}>Get more Sib</button>
+    </div>
+  );
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+export default UseState;
 
-### `npm run build` fails to minify
+```
+![Image description](https://s3.ap-south-1.amazonaws.com/kalvi-education.github.io/front-end-web-development/multipleStateHook.gif)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### PROGRESSION 3 | USE OBJECT STATE
+
+We can modify the above `UseState.js` file, and get the same output by setting the initial value inside `useState` as an `object`. 
+The output of the following code will be the same as the above output that we got from `PROGRESSION 2`.
+Feel free to copy this code, and experiment more.
+
+```js
+
+import React from "react";
+import { useState } from "react";
+import "../App.css"
+
+
+function UseState(){
+
+  const [state, setState] = useState({age:19, siblings:3});
+
+  const handleState = (val)=>{
+  
+    setState({
+      ...state,[val]:state[val]+1
+    })
+  }
+
+  const {age,siblings} = state;
+
+  return(
+    <div>
+      <h3>My Current Age is {age}</h3>
+      <h4>My siblings {siblings}</h4>
+      <button onClick={()=>{handleState("age")}}>age</button>
+      <button onClick={()=>{handleState("siblings")}}>sib</button>
+    </div>
+  )
+
+}
+
+export default UseState;
+
+```
+
+### PROGRESSION 4 | INITIALIZE STATE FROM FUNCTION
+
+We can modify the above `UseState.js` file, and get the same output by initializing state from function. 
+The output of the following code will be the same as the above output that we got from `PROGRESSION 2`.
+Feel free to copy this code, and experiment more.
+
+
+```js
+
+import React from "react";
+import { useState } from "react";
+import "../App.css"
+
+
+function UseState(){
+
+  const [currAge, setAge] = useState(19);
+  const [currSib, setSib] = useState(3);
+
+  return(
+    <div>
+      <h3>My Current Age is {currAge}</h3>
+      <h4>My siblings {currSib}</h4>
+
+      <button onClick={()=>setAge(currAge=>currAge+1)}>age</button>
+      <button onClick={()=>setSib(currSib=>currSib+1)}>sib</button>
+    </div>
+  )
+
+}
+
+export default UseState;
+
+```
+
+### PROGRESSION 5 | `useEffect`
+
+By adding a `useEffect` hook to the same `UseState.js` file (used in `PROGRESSION 4` ) , the following output can be achieved - as shown in the given gif.
+There are few things, which you should explore and experiment. 
+
+1. Try replacing [currAge] with [currSib] --> and see what happens. When you are 
+   replacing [currAge] to [currSib], don't forget to make changes in alert().
+2. Try giving an empty array as well, as the second parameter of `useEffect`.
+
+Apart from the above two exploration tasks, you can experiment more to get a better understanding of the code.
+
+```js
+
+import React, { useState } from "react";
+import { useEffect } from "react";
+
+function UseState(){
+
+  const [currAge, setAge] = useState(19);
+  const [currSib, setSib] = useState(3);
+
+  useEffect(()=>{
+    alert(`something changed ${currAge}`)
+  },[currAge])
+
+  return(
+    <div>
+      <h3>My Current Age is {currAge}</h3>
+      <h4>My siblings {currSib}</h4>
+
+      <button onClick={()=>setAge(currAge=>currAge+1)}>age</button>
+      <button onClick={()=>setSib(currSib=>currSib+1)}>sib</button>
+    </div>
+  )
+
+}
+
+
+export default UseState;
+
+```
+
+![Image description](https://s3.ap-south-1.amazonaws.com/kalvi-education.github.io/front-end-web-development/useEffectHook.gif)
+
+
+### PROGRESSION 6 | `useContext`
+
+Here the focus is on using the hook `useContext`. You can refer to the following code, which provides a toggle functionality -> which can changes the background color whenever it the toggle button is clicked.
+Feel free to copy this piece of code, and experiment around.
+
+`App.js`:
+
+```js
+
+import React,{ useState } from 'react';
+import './App.css';
+import UseContext from './components/UseContext';
+
+export const ToggleTheme = React.createContext()
+
+function App() {
+
+  const [state,setState] = useState(true)
+
+  const handleToggle = ()=>{
+    setState(state=>!state)
+  }
+
+  return (
+    <ToggleTheme.Provider value={state}>
+      <button onClick={handleToggle}>Toggle</button>
+      <UseContext/>
+    </ToggleTheme.Provider>
+  );
+}
+
+export default App;
+
+```
+
+`UseContext.js`:
+
+```js
+
+import React,{ useContext } from "react";
+import { ToggleTheme } from "../App";
+
+function UseContext(){
+  const theme = useContext(ToggleTheme);
+  const themeStyle = {
+    backgroundColor: theme?"black":"grey",
+    color:theme?"grey":"black",
+    padding:"2rem",
+    margin:"2rem"
+  }
+
+  return(
+    <div style={themeStyle}>
+      This is made by Kalvium
+    </div>
+  )
+}
+
+export default UseContext;
+
+```
+
+![Image description](https://s3.ap-south-1.amazonaws.com/kalvi-education.github.io/front-end-web-development/useContextHook.gif)
+
+### Task:
+
+Once you have understood the above `hooks` mentioned, let's quickly test our understanding. Your task is to get an output shown below, by using the following hooks:
+
+1. useState
+2. useEffect
+3. useContext
+
+![](https://s3.ap-south-1.amazonaws.com/kalvi-education.github.io/front-end-web-development/TaskHook.gif)
+
+
+Happy Coding Kalvium ❤️!
+
